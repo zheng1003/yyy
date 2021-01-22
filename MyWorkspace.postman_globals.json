@@ -1,0 +1,34 @@
+{
+	"id": "2b749f11-b67a-4f92-8d88-854573e1b19c",
+	"values": [
+		{
+			"key": "host_1",
+			"value": "http://v.juhe.cn",
+			"enabled": true
+		},
+		{
+			"key": "cityid2",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "num1",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "zuowen",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "zuowen1",
+			"value": "",
+			"enabled": true
+		}
+	],
+	"name": "My Workspace Globals",
+	"_postman_variable_scope": "globals",
+	"_postman_exported_at": "2021-01-22T01:36:20.613Z",
+	"_postman_exported_using": "Postman/7.36.1"
+}

@@ -1,0 +1,621 @@
+{
+	"info": {
+		"_postman_id": "5bbf35c3-62d2-4782-920c-2df0233acb68",
+		"name": "作文大全",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "尾号限行",
+			"item": [
+				{
+					"name": "有效",
+					"item": [
+						{
+							"name": "尾号限行查询",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {},
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "",
+										"value": "authority:da.qidian.qq.com",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "",
+										"value": "method:GET",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "",
+										"value": "path:/ping/b?c=v(0.7.7)tid(800076065)aid()pid(57g57o.1q33qv.kk3t138i)qid(m1oslc.klpydn.kk3q23ud)src(12)cid(8885000192)sid(1.1.xrevvk.kk3sjz89)a(clc)pw(1536)ph(2177)bw(1519)bh(754)bx(0)by(500)tag(div)x(&l[]=48)y(465)t(kk3t3wjt)&l[]=878)y(379)t(kk3t3x5x)&t=kk3t40f1&z=be0enj",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "",
+										"value": "scheme:https",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "accept",
+										"value": "image/avif,image/webp,image/apng,image/*,*/*;q=0.8",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "accept-encoding",
+										"value": "gzip, deflate, br",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "accept-language",
+										"value": "zh-CN,zh;q=0.9",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "referer",
+										"value": "https://www.juhe.cn/",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "sec-fetch-dest",
+										"value": "image",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "sec-fetch-mode",
+										"value": "no-cors",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "sec-fetch-site",
+										"value": "cross-site",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "user-agent",
+										"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{host_1}}/xianxing/index?key={{key_1}}&city={{cityid_1}}&type=1&dtype=json",
+									"host": [
+										"{{host_1}}"
+									],
+									"path": [
+										"xianxing",
+										"index"
+									],
+									"query": [
+										{
+											"key": "key",
+											"value": "{{key_1}}"
+										},
+										{
+											"key": "city",
+											"value": "{{cityid_1}}"
+										},
+										{
+											"key": "type",
+											"value": "1"
+										},
+										{
+											"key": "dtype",
+											"value": "json"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "支持城市列表",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"//  随机数   1-5的随机数据\r",
+											"function GetRandomNum(Min, Max) {\r",
+											"    var Range = Max - Min;\r",
+											"    var Rand = Math.random();\r",
+											"    return(Min + Math.round(Rand * Range))};\r",
+											"var num = GetRandomNum(1, 5);\r",
+											"pm.globals.set(\"num1\",num);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//断言：（判断预期结果和实际结果是否一致）javascript\r",
+											"\r",
+											"//判断响应实体中是否包含预期的字符串\r",
+											"pm.test(\"Body matches string\", function () {\r",
+											"    pm.response.to.have.status(200);  //判断响应状态码是否等于预期结果\r",
+											"    pm.expect(pm.response.text()).to.include(\"beijing\"); \r",
+											"    pm.expect(pm.response.text()).to.include(\"北京\");\r",
+											"    //判断响应实体中是否包含预期的字符串\r",
+											"});\r",
+											"//扩展知识：1.多个断言写入一个里 2.写不包含 to.not\r",
+											"\r",
+											"//判断响应数据中某个键的值是否等于预期结果\r",
+											"//（只适用于响应数据是json格式的）\r",
+											"pm.test(\"Your test name\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData[\"result\"][0][\"city\"]).to.eql(\"beijing\");\r",
+											"});\r",
+											"//判断响应数据是否等于预期结果\r",
+											"//（注意只能用在响应数据是字符串时）\r",
+											"pm.test(\"Body is correct\", function () {\r",
+											"    pm.response.to.have.body(\"查询成功\");\r",
+											"});\r",
+											"//响应头部域中是否包含预期的字段\r",
+											"pm.test(\"Content-Type is present\", function () {\r",
+											"    pm.response.to.have.header(\"Content-Type\");\r",
+											"});\r",
+											"\r",
+											"//判断响应时间是否小于预期的时间\r",
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});\r",
+											"\r",
+											"//判断响应状态码是否是预期结果中的某一个\r",
+											"pm.test(\"Successful POST request\", function () {\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);\r",
+											"});\r",
+											"\r",
+											"//判断响应状态码的解释是否等于预期结果\r",
+											"pm.test(\"Status code name has string\", function () {\r",
+											"    pm.response.to.have.status(\"OK\");\r",
+											"});\r",
+											"// 获取接口1的响应数据\r",
+											"var abc=pm.response.json();\r",
+											"//将需要的数据设置成变量\r",
+											"num=pm.globals.get(\"num1\")  //获取某个变量的数据\r",
+											"//设置成局部变量 （变量名，变量的取值）\r",
+											"pm.environment.set(\"cityid1\",abc[\"result\"][num][\"city\"]);\r",
+											"pm.globals.set(\"cityid2\",abc[\"result\"][num][\"city\"]);\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"user-agent": true,
+									"accept": true,
+									"accept-encoding": true
+								}
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "",
+										"value": "authority:da.qidian.qq.com",
+										"type": "text"
+									},
+									{
+										"key": "",
+										"value": "method:GET",
+										"type": "text"
+									},
+									{
+										"key": "",
+										"value": "path:/ping/clc?v=0.7.7&tid=800076065&aid=&pid=x7a1ks.3hspy1.kk3q23ub&qid=m1oslc.klpydn.kk3q23ud&src=12&cid=8885000192&sid=1.1.9f4c8z.kk3q23uf&pw=1536&ph=2794&bw=1519&bh=754&bx=0&by=500&tag=div&x=115&y=366&t=kk3q52tg&z=7b5dn9",
+										"type": "text"
+									},
+									{
+										"key": "",
+										"value": "scheme:https",
+										"type": "text"
+									},
+									{
+										"key": "accept",
+										"value": "image/avif,image/webp,image/apng,image/*,*/*;q=0.8",
+										"type": "text"
+									},
+									{
+										"key": "accept-encoding",
+										"value": "gzip, deflate, br",
+										"type": "text"
+									},
+									{
+										"key": "accept-language",
+										"value": "zh-CN,zh;q=0.9",
+										"type": "text"
+									},
+									{
+										"key": "referer",
+										"value": "https://www.juhe.cn/",
+										"type": "text"
+									},
+									{
+										"key": "sec-fetch-dest",
+										"value": "image",
+										"type": "text"
+									},
+									{
+										"key": "sec-fetch-mode",
+										"value": "no-cors",
+										"type": "text"
+									},
+									{
+										"key": "sec-fetch-site",
+										"value": "cross-site",
+										"type": "text"
+									},
+									{
+										"key": "user-agent",
+										"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://v.juhe.cn/xianxing/citys?key=cc784097e8db41f8d7ebffaabd1ea2ca",
+									"protocol": "http",
+									"host": [
+										"v",
+										"juhe",
+										"cn"
+									],
+									"path": [
+										"xianxing",
+										"citys"
+									],
+									"query": [
+										{
+											"key": "key",
+											"value": "cc784097e8db41f8d7ebffaabd1ea2ca"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "无效",
+					"item": [
+						{
+							"name": "支持城市列表 Copy",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"//  随机数   1-5的随机数据\r",
+											"function GetRandomNum(Min, Max) {\r",
+											"    var Range = Max - Min;\r",
+											"    var Rand = Math.random();\r",
+											"    return(Min + Math.round(Rand * Range))};\r",
+											"var num = GetRandomNum(1, 5);\r",
+											"pm.globals.set(\"num1\",num);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//断言：（判断预期结果和实际结果是否一致）javascript\r",
+											"//判断响应状态码是否等于预期结果\r",
+											"\r",
+											"//判断响应实体中是否包含预期的字符串\r",
+											"pm.test(\"Body matches string\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"    pm.expect(pm.response.text()).to.include(\"beijing\");\r",
+											"    pm.expect(pm.response.text()).to.include(\"北京\");\r",
+											"    \r",
+											"});\r",
+											"//扩展知识：1.多个断言写入一个里 2.写不包含 to.not\r",
+											"\r",
+											"//判断响应数据中某个键的值是否等于预期结果\r",
+											"//（只适用于响应数据是json格式的）\r",
+											"pm.test(\"Your test name\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData[\"result\"][0][\"city\"]).to.eql(\"beijing\");\r",
+											"});\r",
+											"//判断响应数据是否等于预期结果\r",
+											"//（注意只能用在响应数据是字符串时）\r",
+											"pm.test(\"Body is correct\", function () {\r",
+											"    pm.response.to.not.have.body(\"查询成功\");\r",
+											"});\r",
+											"//响应头部域中是否包含预期的字段\r",
+											"pm.test(\"Content-Type is present\", function () {\r",
+											"    pm.response.to.have.header(\"Content-Type\");\r",
+											"});\r",
+											"\r",
+											"//判断响应时间是否小于预期的时间\r",
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});\r",
+											"\r",
+											"//判断响应状态码是否是预期结果中的某一个\r",
+											"pm.test(\"Successful POST request\", function () {\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);\r",
+											"});\r",
+											"\r",
+											"//判断响应状态码的解释是否等于预期结果\r",
+											"pm.test(\"Status code name has string\", function () {\r",
+											"    pm.response.to.have.status(\"OK\");\r",
+											"});\r",
+											"// 获取接口1的响应数据\r",
+											"var abc=pm.response.json();\r",
+											"//将需要的数据设置成变量\r",
+											"num=pm.globals.get(\"num1\")  //获取某个变量的数据\r",
+											"//设置成局部变量 （变量名，变量的取值）\r",
+											"pm.environment.set(\"cityid1\",abc[\"result\"][num][\"city\"]);\r",
+											"pm.globals.set(\"cityid2\",abc[\"result\"][num][\"city\"]);\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"accept": true,
+									"accept-encoding": true,
+									"user-agent": true
+								}
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "",
+										"type": "text",
+										"value": "authority:da.qidian.qq.com"
+									},
+									{
+										"key": "",
+										"type": "text",
+										"value": "method:GET"
+									},
+									{
+										"key": "",
+										"type": "text",
+										"value": "path:/ping/clc?v=0.7.7&tid=800076065&aid=&pid=x7a1ks.3hspy1.kk3q23ub&qid=m1oslc.klpydn.kk3q23ud&src=12&cid=8885000192&sid=1.1.9f4c8z.kk3q23uf&pw=1536&ph=2794&bw=1519&bh=754&bx=0&by=500&tag=div&x=115&y=366&t=kk3q52tg&z=7b5dn9"
+									},
+									{
+										"key": "",
+										"type": "text",
+										"value": "scheme:https"
+									},
+									{
+										"key": "accept",
+										"type": "text",
+										"value": "image/avif,image/webp,image/apng,image/*,*/*;q=0.8"
+									},
+									{
+										"key": "accept-encoding",
+										"type": "text",
+										"value": "gzip, deflate, br"
+									},
+									{
+										"key": "accept-language",
+										"type": "text",
+										"value": "zh-CN,zh;q=0.9"
+									},
+									{
+										"key": "referer",
+										"type": "text",
+										"value": "https://www.juhe.cn/"
+									},
+									{
+										"key": "sec-fetch-dest",
+										"type": "text",
+										"value": "image"
+									},
+									{
+										"key": "sec-fetch-mode",
+										"type": "text",
+										"value": "no-cors"
+									},
+									{
+										"key": "sec-fetch-site",
+										"type": "text",
+										"value": "cross-site"
+									},
+									{
+										"key": "user-agent",
+										"type": "text",
+										"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36"
+									}
+								],
+								"url": {
+									"raw": "http://v.juhe.cn/xianxing/citys?key={{key_2}}",
+									"protocol": "http",
+									"host": [
+										"v",
+										"juhe",
+										"cn"
+									],
+									"path": [
+										"xianxing",
+										"citys"
+									],
+									"query": [
+										{
+											"key": "key",
+											"value": "{{key_2}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "尾号限行查询 Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Body is correct\", function () {\r",
+											"    pm.response.to.not.have.body(\"查询成功\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {},
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "",
+										"value": "authority:da.qidian.qq.com",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "",
+										"value": "method:GET",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "",
+										"value": "path:/ping/b?c=v(0.7.7)tid(800076065)aid()pid(57g57o.1q33qv.kk3t138i)qid(m1oslc.klpydn.kk3q23ud)src(12)cid(8885000192)sid(1.1.xrevvk.kk3sjz89)a(clc)pw(1536)ph(2177)bw(1519)bh(754)bx(0)by(500)tag(div)x(&l[]=48)y(465)t(kk3t3wjt)&l[]=878)y(379)t(kk3t3x5x)&t=kk3t40f1&z=be0enj",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "",
+										"value": "scheme:https",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "accept",
+										"value": "image/avif,image/webp,image/apng,image/*,*/*;q=0.8",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "accept-encoding",
+										"value": "gzip, deflate, br",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "accept-language",
+										"value": "zh-CN,zh;q=0.9",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "referer",
+										"value": "https://www.juhe.cn/",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "sec-fetch-dest",
+										"value": "image",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "sec-fetch-mode",
+										"value": "no-cors",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "sec-fetch-site",
+										"value": "cross-site",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "user-agent",
+										"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{host_1}}/xianxing/index?key={{key_2}}&city={{cityid_2}}&type=1&dtype=json",
+									"host": [
+										"{{host_1}}"
+									],
+									"path": [
+										"xianxing",
+										"index"
+									],
+									"query": [
+										{
+											"key": "key",
+											"value": "{{key_2}}"
+										},
+										{
+											"key": "city",
+											"value": "{{cityid_2}}"
+										},
+										{
+											"key": "type",
+											"value": "1"
+										},
+										{
+											"key": "dtype",
+											"value": "json"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
